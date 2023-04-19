@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:signauth/screens/home_screen.dart';
+import 'package:signauth/screens/reset_password.dart';
 import 'package:signauth/screens/signup_screen.dart';
 import 'package:signauth/utils/color_utils.dart';
 
@@ -48,14 +49,17 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                signInSignupButton(context, true, () {
+                forgetPassword(context),
+                firbaseButton(context, "Connexion", () {
                   FirebaseAuth.instance
                       .signInWithEmailAndPassword(
                           email: _emailTextController.text,
                           password: _passwordTextController.text)
                       .then((value) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()));
                   }).onError((error, stackTrace) {
                     print("Vérifier vos cordonnées ${(error.toString())}");
                   });
@@ -86,6 +90,25 @@ class _SignInScreenState extends State<SignInScreen> {
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ))
       ],
+    );
+  }
+
+  Widget forgetPassword(BuildContext context) {
+    return Container(
+      height: 35,
+      alignment: Alignment.bottomRight,
+      child: TextButton(
+        child: const Text(
+          "Mot de passe oublié? ",
+          style: TextStyle(color: Colors.white70),
+          textAlign: TextAlign.right,
+        ),
+        onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ResetPassword(),
+            )),
+      ),
     );
   }
 }

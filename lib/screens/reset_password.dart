@@ -5,17 +5,15 @@ import 'package:signauth/reusable_widget/reusable_widget.dart';
 import '../utils/color_utils.dart';
 import 'home_screen.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class ResetPassword extends StatefulWidget {
+  const ResetPassword({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<ResetPassword> createState() => _ResetPasswordState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  TextEditingController _userNameTextController = TextEditingController();
+class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          "Inscription ",
+          "Réinitialisation ",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
@@ -48,8 +46,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                reusableTextField("Entrez  nom utilisateur",
-                    Icons.person_outline, false, _userNameTextController),
                 const SizedBox(
                   height: 20,
                 ),
@@ -58,25 +54,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Entrez mot de passe", Icons.lock_outline,
-                    true, _passwordTextController),
                 const SizedBox(
                   height: 20,
                 ),
-                firbaseButton(context, "Inscription", () {
+                firbaseButton(context, "Réinitialiser mot de passe", () {
                   FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) {
-                    print("Compte créé avec succès ! ");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen()));
-                  }).onError((error, stackTrace) {
-                    print("Erreur ${(error.toString())} ");
-                  });
+                      .sendPasswordResetEmail(email: _emailTextController.text)
+                      .then((value) => Navigator.of(context).pop());
                 })
               ],
             ),
