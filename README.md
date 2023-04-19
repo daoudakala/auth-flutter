@@ -16,8 +16,4 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 # auth-flutter
 
-<<<<<<< HEAD
 ![text](https://i.postimg.cc/RV6Rqhvv/Auth-flutter.png)
-=======
-![text](https://i.postimg.cc/RV6Rqhvv/Auth-flutter.png) 
->>>>>>> 7bc1e84 (commit)
